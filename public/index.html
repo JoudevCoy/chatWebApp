@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat App</title>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header>
+    <h1> Chat Sederhana </h1>
+    <p> selamat datang, ini adalah chat Line to Line. Jadi pastikan di awal kalian sudah memasukan nama kalian </p>
+  </header>
+  <ul id="messages"></ul>
+  <form id="chat-form">
+    <input id="input-message" placeholder="Type message here.." autocomplete="off" /><button>Send</button>
+  </form>
+
+  <script>
+    // Membuat koneksi socket
+    const socket = io();
+
+
+    const dName = localStorage.getItem('joudevChat_name');
+    
+    if (dName === null){
+      const nama = prompt("masukan nama:");
+      localStorage.setItem('joudevChat_name', nama);
+    } else {
+      console.log("hello")
+    }
+
+
+    // Menangani saat pesan diterima
+    socket.on('chat message', (msg) => {
+      $('#messages').append($('<li>').text(msg));
+    });
+
+    socket.on('disconnect', () => {
+      console.log('User keluar');
+    });
+
+
+    // Menangani saat formulir terkirim
+    $('#chat-form').submit((e) => {
+      e.preventDefault();
+      const message = dName + ": " + $('#input-message').val();
+      socket.emit('chat message', message);
+      $('#input-message').val('');
+      return false;
+    });
+  </script>
+</body>
+</html>
