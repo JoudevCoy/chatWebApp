@@ -83,12 +83,24 @@ header h1, header p {
     header h1 {
         font-size: 30px;
     }
+  #chat-form {
+    padding-bottom: 50px;
+    background: whitesmoke;
+    opacity: 0.6;
+  }
     #chat-form #input-message {
         width: 80%;
         height: 40px;
+        font-weight: 500;
+      box-shadow: 0 0 15px #00000035;
     }
+  #chat-form #input-message:focus, #chat-form:hover {
+    opacity: 1;
+  }
+  
     #chat-form button {
         width: 20%;
         height: 40px;
+      box-shadow: 0 0 15px #00000035;
     }
 }

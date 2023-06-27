@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Chat App</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat App || Joudev</title>
 
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -38,15 +40,12 @@
       $('#messages').append($('<li>').text(msg));
     });
 
-    socket.on('disconnect', () => {
-      console.log('User keluar');
-    });
-
-
+    
+    const tName = localStorage.getItem('joudevChat_name');
     // Menangani saat formulir terkirim
     $('#chat-form').submit((e) => {
       e.preventDefault();
-      const message = dName + ": " + $('#input-message').val();
+      const message = tName + ": " + $('#input-message').val();
       socket.emit('chat message', message);
       $('#input-message').val('');
       return false;
